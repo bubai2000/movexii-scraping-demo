@@ -38,7 +38,7 @@ for row in rows:
 df = DataFrame(export, columns=[cell.text for cell in table.find_element(
     By.TAG_NAME, "thead").find_element(By.TAG_NAME, "tr").find_elements(By.TAG_NAME, "th")])
 df.set_index("Product code", inplace=True)
-df.to_json("export_data.json", orient="index")
+df.to_json("output/export_data.json", orient="index")
 
 #Finding images
 image_base_url = "https://www.movexii.com/_next/image"
@@ -55,7 +55,7 @@ for log in logs:
 #Saving images
 for image_url in image_url_list:
     response = get(image_url)
-    with open(response.headers['content-disposition'].split('=')[1].replace('"', ''), "wb") as f:
+    with open("output/"+response.headers['content-disposition'].split('=')[1].replace('"', ''), "wb") as f:
         f.write(response.content)
 
 #Closing chrome
